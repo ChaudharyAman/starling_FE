@@ -8,8 +8,8 @@ const PRODUCTS = [
     id: 1,
     name: 'Benny Dog',
     tagline: 'The quiet little dreamer with a heart full of wonder.',
-    price: 1299,
-    originalPrice: 1599,
+    price: 2299,
+    originalPrice: 2599,
     image: '16.jpeg',
     gallery: ['16.jpeg', '9.jpeg'],
     category: 'Dolls',
@@ -35,11 +35,11 @@ const PRODUCTS = [
   },
   {
     id: 2,
-    name: 'Buttercup Lamb ',
+    name: 'ELLIE ELEPHANT',
     tagline: 'Gentle, wise, and endlessly comforting.',
-    price: 1099,
+    price: 2099,
     originalPrice: null,
-    image: '3.jpeg',
+    image: '17.jpeg',
     gallery: ['3.jpeg', '5.jpeg'],
     category: 'Soft Toys',
     badge: 'New',
@@ -65,8 +65,8 @@ const PRODUCTS = [
     id: 3,
     name: 'MILO MONKEY',
     tagline: 'Playful, cheerful, and always ready for tiny adventures.',
-    price: 1199,
-    originalPrice: 1499,
+    price: 2199,
+    originalPrice: 2499,
     image: '2.jpeg',
     gallery: ['2.jpeg'],
     category: 'Soft Toys',
@@ -90,7 +90,7 @@ const PRODUCTS = [
     id: 4,
     name: 'Kiki Kangaroo  ',
     tagline: 'Loyal, lovable, and made for everyday companionship.',
-    price: 999,
+    price: 2099,
     originalPrice: null,
     image: '1.jpeg',
     gallery: ['1.jpeg'],
@@ -118,7 +118,7 @@ const PRODUCTS = [
     id: 5,
     name: 'Bunny Backpack',
     tagline: 'A little lamb, a lot of love.',
-    price: 1399,
+    price: 2399,
     originalPrice: null,
     image: '11.jpeg',
     gallery: ['11.jpeg'],
@@ -143,8 +143,8 @@ const PRODUCTS = [
     id: 6,
     name: 'Bunny Family Basket',
     tagline: 'Handmade with love, dressed for adventure.',
-    price: 1599,
-    originalPrice: 1899,
+    price: 2599,
+    originalPrice: 2899,
     image: '13.jpeg',
     gallery: ['13.jpeg'],
     category: 'Dolls',
@@ -171,7 +171,7 @@ const PRODUCTS = [
     id: 7,
     name: 'Dreamer Doll',
     tagline: "Your little one's adventure companion.",
-    price: 1799,
+    price: 2799,
     originalPrice: null,
     image: '8.jpeg',
     gallery: ['8.jpeg', '7.jpeg'],
@@ -270,6 +270,113 @@ const PRODUCTS = [
     tags: ['storage', 'unicorn', 'nursery', 'dual-use'],
     variants: [{ label: 'Natural Stripe', sku: 'TSU-NS' }],
   },
+  {
+    id: 11,
+    name: 'Striped Storage Basket',
+    tagline: 'Practical, charming, and perfect for nursery organization.',
+    price: 2899,
+    originalPrice: 3199,
+    image: '10.jpeg',
+    gallery: ['10.jpeg'],
+    category: 'Nursery',
+    badge: 'New',
+    rating: 4.8,
+    reviews: 14,
+    inStock: true,
+    description:
+      'A versatile ticking stripe canvas storage basket that keeps playrooms tidy and stylish. Handcrafted with sturdy cotton canvas and soft handles for easy carrying.',
+    details: [
+      'Dimensions: 35cm diameter x 40cm tall',
+      'Material: 100% cotton canvas outer',
+      'Wipe clean only',
+      'Sturdy woven handles',
+    ],
+    tags: ['storage', 'striped', 'nursery'],
+    variants: [{ label: 'Natural Stripe', sku: 'SSB-NS' }],
+  },
+  {
+    id: 12,
+    name: 'Classic Toy Organiser',
+    tagline: 'Keep play spaces beautiful and clutter-free.',
+    price: 2999,
+    originalPrice: null,
+    image: '12.jpeg',
+    gallery: ['12.jpeg'],
+    category: 'Nursery',
+    badge: null,
+    rating: 4.9,
+    reviews: 18,
+    inStock: true,
+    description:
+      'A beautifully structured storage bag designed to hold blankets, soft toys, and nursery essentials. Made with premium heavy-weight cotton that stands upright.',
+    details: [
+      'Dimensions: 38cm wide x 35cm tall',
+      'Material: durable ticking canvas',
+      'Spot clean',
+      'Foldable for easy storage',
+    ],
+    tags: ['storage', 'basket', 'nursery'],
+    variants: [{ label: 'Grey Stripe', sku: 'CTO-GS' }],
+  },
+]
+
+const RESIDENTS = [
+  {
+    id: 'res-1',
+    name: 'Benny Dog',
+    tagline: 'The quiet little dreamer with a heart full of wonder.',
+    image: '16.jpeg',
+    gallery: ['16.jpeg', '9.jpeg'],
+    description: 'Benny is a gentle soul who loves cozy blanket forts, listening to the soft patter of rain, and dreaming up adventures in the clouds. He is the perfect companion for peaceful afternoons, quiet reading hours, and gentle bedtime rituals.',
+    personality: [
+      { label: 'Favorite Activity', value: 'Cloud gazing & blanket forts' },
+      { label: 'Dream', value: 'To touch a shooting star' },
+      { label: 'Secret Talent', value: 'Whispering sweet dreams' }
+    ],
+    productId: 1
+  },
+  {
+    id: 'res-2',
+    name: 'ELLIE ELEPHANT',
+    tagline: 'Gentle, wise, and endlessly comforting.',
+    image: '17.jpeg',
+    gallery: ['3.jpeg', '5.jpeg'],
+    description: 'With her soft velvet ears and kind eyes, Ellie is a patient listener and a steady friend. She loves sharing tea parties with invisible cakes, listening to old nursery rhymes, and wrapping little hands in warm, comforting hugs.',
+    personality: [
+      { label: 'Favorite Activity', value: 'Listening to lullabies' },
+      { label: 'Dream', value: 'To paint the nursery sky' },
+      { label: 'Secret Talent', value: 'Remembering every story' }
+    ],
+    productId: 2
+  },
+  {
+    id: 'res-3',
+    name: 'DREAMER DOLL',
+    tagline: 'Playful, cheerful, and always ready for tiny adventures.',
+    image: '8.jpeg',
+    gallery: ['8.jpeg', '7.jpeg'],
+    description: 'Dreamer doll is a bundle of joy who believes that every day is a brand new adventure. She loves swinging from branch to branch (or chair to chair!), playing peek-a-boo, and bringing giggles and bright smiles to every room.',
+    personality: [
+      { label: 'Favorite Activity', value: 'Acrobatic tricks & peek-a-boo' },
+      { label: 'Dream', value: 'To build a ladder to the moon' },
+      { label: 'Secret Talent', value: 'Making anyone laugh' }
+    ],
+    productId: 7
+  },
+  {
+    id: 'res-4',
+    name: 'Kiki Kangaroo',
+    tagline: 'Loyal, lovable, and made for everyday companionship.',
+    image: '1.jpeg',
+    gallery: ['1.jpeg'],
+    description: 'Kiki reminds little ones that love is the safest place to land. Her front pocket holds little surprises—a tiny joey, secret notes, or precious treasures found during outdoor walks. She is always ready to bounce into fun!',
+    personality: [
+      { label: 'Favorite Activity', value: 'Collecting pocket treasures' },
+      { label: 'Dream', value: 'To jump over a rainbow' },
+      { label: 'Secret Talent', value: 'Keeping secrets safe' }
+    ],
+    productId: 4
+  }
 ]
 
 const navLinks = [
@@ -853,6 +960,187 @@ function ProductModal({
   )
 }
 
+function ResidentCard({ resident, onOpenStory }) {
+  return (
+    <article 
+      className="group relative overflow-hidden rounded-xl bg-white shadow-[0_2px_12px_rgba(44,62,53,0.07)] cursor-pointer transition-all duration-220 hover:-translate-y-1.25 hover:shadow-[0_8px_28px_rgba(44,62,53,0.13)]"
+      onClick={() => onOpenStory(resident)}
+    >
+      <div className="relative aspect-[4/5] overflow-hidden">
+        <img 
+          src={resident.image} 
+          alt={resident.name} 
+          className="w-full h-full object-cover transition-transform duration-350 group-hover:scale-104" 
+          loading="lazy" 
+        />
+        
+        <div className="absolute inset-0 z-10 flex flex-col items-center justify-end p-5 bg-gradient-to-t from-text-dark/40 to-transparent opacity-0 transition-opacity duration-220 group-hover:opacity-100">
+          <button
+            className="min-h-10 px-5 rounded-full border-none bg-white text-text-dark text-xs font-semibold tracking-wider uppercase shadow-md transition-all duration-150 hover:bg-blue-light hover:scale-105"
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenStory(resident);
+            }}
+          >
+            Meet {resident.name.split(' ')[0]}
+          </button>
+        </div>
+      </div>
+
+      <div className="p-5 text-center flex flex-col justify-between min-h-[170px]">
+        <div>
+          <h3 className="mb-2 text-text-dark font-display text-xl font-semibold leading-tight">{resident.name}</h3>
+          <p className="text-text-muted text-xs font-light leading-relaxed italic">
+            "{resident.tagline}"
+          </p>
+        </div>
+        <div className="mt-4 flex justify-center">
+          <button 
+            type="button" 
+            className="inline-flex min-h-[38px] items-center gap-1.5 border border-dashed border-blue-soft/50 rounded-full px-4.5 py-1.5 text-[11px] font-medium tracking-wide uppercase text-blue-soft bg-blue-light/20 transition-colors duration-200 hover:bg-blue-soft hover:text-white"
+            onClick={(e) => {
+              e.stopPropagation();
+              onOpenStory(resident);
+            }}
+          >
+            <Icon name="heart" className="h-3.5 w-3.5 shrink-0" />
+            Read My Story
+          </button>
+        </div>
+      </div>
+    </article>
+  )
+}
+
+function ResidentModal({ resident, onClose, onAdopt }) {
+  const drawerRef = useRef(null)
+  const [mainImage, setMainImage] = useState(resident?.image || '')
+
+  useEffect(() => {
+    if (!resident) return
+    setMainImage(resident.image)
+  }, [resident])
+
+  useEffect(() => {
+    if (!resident) return undefined
+    const drawer = drawerRef.current
+    const focusable = drawer?.querySelectorAll(
+      'a[href], button:not([disabled]), summary, [tabindex]:not([tabindex="-1"])',
+    )
+    const first = focusable?.[0]
+    const last = focusable?.[focusable.length - 1]
+    first?.focus()
+
+    function trapFocus(event) {
+      if (event.key !== 'Tab' || !first || !last) return
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    drawer?.addEventListener('keydown', trapFocus)
+    return () => drawer?.removeEventListener('keydown', trapFocus)
+  }, [resident])
+
+  if (!resident) return null
+
+  return (
+    <div className="fixed inset-0 z-[1000] flex items-stretch justify-end" role="dialog" aria-modal="true" aria-labelledby="modal-resident-name">
+      <button className="absolute inset-0 bg-text-dark/45 backdrop-blur-[2px] animate-fade-in" type="button" onClick={onClose} aria-label="Close resident story" />
+
+      <div className="relative flex h-full w-full max-w-[800px] flex-col overflow-y-auto bg-cream animate-slide-in-right" ref={drawerRef}>
+        <button className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center border border-cream-dark rounded-full bg-white text-text-dark transition-colors duration-150 hover:bg-cream-dark" type="button" onClick={onClose} aria-label="Close resident story">
+          <Icon name="x" className="h-5 w-5" />
+        </button>
+
+        <div className="grid min-h-full grid-cols-1 md:grid-cols-2">
+          {/* Left panel - Character Image */}
+          <div className="relative p-10 px-7.5 bg-white flex flex-col justify-center border-b border-cream-dark md:border-b-0 md:border-r">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-lg mb-3 shadow-[0_4px_16px_rgba(0,0,0,0.06)]">
+              <img src={mainImage} alt={resident.name} className="w-full h-full object-cover" loading="eager" />
+            </div>
+            
+            {resident.gallery && resident.gallery.length > 1 ? (
+              <div className="flex flex-wrap gap-2 justify-center" role="list" aria-label="Character images">
+                {resident.gallery.map((image, index) => (
+                  <button
+                    key={image}
+                    className={`w-14 h-14 overflow-hidden border-2 rounded-md bg-cream transition-colors duration-150 ${mainImage === image ? 'border-blue-soft' : 'border-transparent hover:border-blue-soft'}`}
+                    type="button"
+                    role="listitem"
+                    onClick={() => setMainImage(image)}
+                    aria-label={`View image ${index + 1}`}
+                  >
+                    <img src={image} alt={`${resident.name} view ${index + 1}`} className="w-full h-full object-cover" loading="lazy" />
+                  </button>
+                ))}
+              </div>
+            ) : null}
+          </div>
+
+          {/* Right panel - Character Bio & Quirks */}
+          <div className="overflow-y-auto p-10 pr-9 pl-7.5 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-blue-soft text-xs font-medium tracking-widest uppercase">Resident Companion</span>
+                <span className="static rounded-full px-2.5 py-0.5 text-[9px] font-medium tracking-widest leading-tight uppercase pointer-events-none text-white bg-gold">Storyteller Edition</span>
+              </div>
+
+              <h2 id="modal-resident-name" className="mb-2.5 text-text-dark font-display text-3xl font-semibold leading-tight">
+                {resident.name}
+              </h2>
+
+              <HeartDivider centered={false} />
+
+              <p className="mt-4 mb-5 text-brown-warm font-serif-poetic text-lg italic leading-relaxed">
+                "{resident.tagline}"
+              </p>
+
+              <div className="border-t border-cream-dark pt-4 mb-6">
+                <h4 className="text-[11px] font-medium uppercase tracking-[0.18em] text-text-dark mb-2.5">My Story</h4>
+                <p className="text-text-body text-[13.5px] font-light leading-relaxed">{resident.description}</p>
+              </div>
+
+              <div className="border-t border-cream-dark pt-4 mb-6">
+                <h4 className="text-[11px] font-medium uppercase tracking-[0.18em] text-text-dark mb-3">Personality & Quirks</h4>
+                <div className="flex flex-col gap-2.5">
+                  {resident.personality.map((trait) => (
+                    <div key={trait.label} className="flex items-center gap-3 border border-cream-dark/50 rounded-lg p-2.5 bg-white/50">
+                      <div className="h-7 w-7 rounded-full bg-blue-light flex items-center justify-center shrink-0">
+                        <Icon name="star" className="h-3.5 w-3.5 text-blue-soft" />
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-medium uppercase tracking-wider text-text-muted leading-none mb-0.5">{trait.label}</p>
+                        <p className="text-text-dark text-xs font-light">{trait.value}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 mt-auto border-t border-cream-dark/60">
+              <button
+                className="w-full flex min-h-[48px] items-center justify-center gap-2 border-none rounded-md px-5 py-3.5 bg-text-dark text-cream text-xs font-medium tracking-widest uppercase transition-colors duration-200 hover:bg-blue-soft"
+                type="button"
+                onClick={() => onAdopt(resident.productId)}
+              >
+                <Icon name="heart" className="h-4 w-4" />
+                Adopt {resident.name.split(' ')[0]} & Bring Home
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function CartDrawer({ cart, products, onClose, onQty, onRemove, onCheckout }) {
   const panelRef = useRef(null)
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0)
@@ -1070,6 +1358,7 @@ function App() {
   const [cart, setCart] = useState(() => readStorage('st_cart', []))
   const [wishlist, setWishlist] = useState(() => readStorage('st_wishlist', []))
   const [activeProductId, setActiveProductId] = useState(null)
+  const [activeResident, setActiveResident] = useState(null)
   const [cartOpen, setCartOpen] = useState(false)
   const [wishlistOpen, setWishlistOpen] = useState(false)
   const [toasts, setToasts] = useState([])
@@ -1149,16 +1438,17 @@ function App() {
   }, [wishlist])
 
   useEffect(() => {
-    document.body.style.overflow = activeProduct || cartOpen || wishlistOpen ? 'hidden' : ''
+    document.body.style.overflow = activeProduct || activeResident || cartOpen || wishlistOpen ? 'hidden' : ''
     return () => {
       document.body.style.overflow = ''
     }
-  }, [activeProduct, cartOpen, wishlistOpen])
+  }, [activeProduct, activeResident, cartOpen, wishlistOpen])
 
   useEffect(() => {
     function handleKeydown(event) {
       if (event.key !== 'Escape') return
       setActiveProductId(null)
+      setActiveResident(null)
       setCartOpen(false)
       setWishlistOpen(false)
     }
@@ -1334,14 +1624,11 @@ function App() {
             </div>
 
             <div className="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
-              {PRODUCTS.slice(0, 4).map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  isWishlisted={wishlist.includes(product.id)}
-                  onWishlist={toggleWishlist}
-                  onQuickView={setActiveProductId}
-                  onAddToCart={addToCart}
+              {RESIDENTS.map((resident) => (
+                <ResidentCard
+                  key={resident.id}
+                  resident={resident}
+                  onOpenStory={setActiveResident}
                 />
               ))}
             </div>
@@ -1365,12 +1652,20 @@ function App() {
               </div>
               <p className="mt-8 text-[15px] font-light leading-[1.85] text-text-body">
                 At Starling Tales, we believe childhood should feel gentle, comforting, and
-                beautifully unhurried.
+                beautifully unhurried. We are dedicated to creating a serene world of wonder,
+                crafted with mindful materials that feel like a soft, warm hug for your little ones.
               </p>
               <p className="mt-5 text-[15px] font-light leading-[1.85] text-text-body">
-                Every piece is thoughtfully created using soft fabrics, calming colors, and
-                understated details - designed to celebrate milestones while becoming
-                cherished keepsakes over time.
+                Every piece is thoughtfully created in our quiet workshop using chemical-free fibres, 
+                soothing tones, and understated accents. We place each stitch with intention, 
+                crafting toys and nursery textiles that are meant to celebrate childhood milestones 
+                while becoming cherished family heirlooms over time.
+              </p>
+              <p className="mt-5 mb-8 text-[15px] font-light leading-[1.85] text-text-body">
+                Our philosophy is simple: to encourage slow, mindful living from the very start. 
+                By choosing natural cottons, hypoallergenic fillings, and safety-tested details, 
+                we ensure that every Starling Tales companion brings a gentle, enduring sense of comfort, 
+                imagination, and peace into your home.
               </p>
               <div className="mt-9">
                 <ButtonLink href="#about-us">Our Story</ButtonLink>
@@ -1388,8 +1683,10 @@ function App() {
               </p>
             </div>
 
-            <div id="collection" className="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-              {PRODUCTS.map((product) => (
+            <div id="collection" className="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+              {PRODUCTS.filter(
+                (product) => !RESIDENTS.some((resident) => resident.productId === product.id)
+              ).map((product) => (
                 <ProductCard
                   key={product.id}
                   product={product}
@@ -1415,8 +1712,24 @@ function App() {
               </h2>
               <p className="mt-6 text-[15px] font-light leading-[1.85] text-text-body">
                 Every hamper is thoughtfully curated and presented - a complete gifting
-                experience for new arrivals, birthdays, and milestone moments.
+                experience for new arrivals, birthdays, and milestone moments. We combine our
+                most-loved hand-stitched companions, soft organic muslin textiles, and safe
+                keepsakes into harmonious sets designed to delight both parents and little ones.
               </p>
+              <ul className="mt-6 mb-8 space-y-3.5 p-0 list-none text-text-body text-[14px] font-light">
+                <li className="flex items-center gap-3">
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-soft shrink-0" />
+                  <span>Custom embroidery & name personalisation available</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-soft shrink-0" />
+                  <span>Signature woven rope basket or keepsake keepsake box packaging</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="h-1.5 w-1.5 rounded-full bg-blue-soft shrink-0" />
+                  <span>Complimentary handwritten calligraphed gift note card</span>
+                </li>
+              </ul>
               <div className="mt-9">
                 <ButtonLink href="#gift-hampers">Shop Hampers</ButtonLink>
               </div>
@@ -1425,8 +1738,8 @@ function App() {
           <div className="p-0 md:p-8">
             <img
               className="h-full min-h-[420px] w-full rounded-lg object-cover"
-              src="15.jpeg"
-              alt="Pillow with a bunny toy tucked into a handmade gift display"
+              src="19.jpeg"
+              alt="A beautifully presented premium gift set displaying our hand-stitched toys"
               loading="lazy"
               decoding="async"
             />
@@ -1522,6 +1835,17 @@ function App() {
           </div>
         </div>
       </footer>
+
+      {activeResident ? (
+        <ResidentModal
+          resident={activeResident}
+          onClose={() => setActiveResident(null)}
+          onAdopt={(productId) => {
+            setActiveResident(null)
+            setActiveProductId(productId)
+          }}
+        />
+      ) : null}
 
       {activeProduct ? (
         <ProductModal
