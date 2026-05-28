@@ -1547,19 +1547,19 @@ function App() {
       </header>
 
       <main id="home" className="pt-[68px]">
-        <section className="relative overflow-hidden bg-cream pt-8 pb-12 md:pt-16 md:pb-20 lg:pt-20 lg:pb-24">
+        <section className="relative overflow-hidden bg-cream pt-4 pb-12 md:pt-8 md:pb-20 lg:pt-10 lg:pb-24">
           <Botanical className="absolute -left-10 top-12 h-44 w-44 text-blue-muted opacity-20" />
           <Botanical className="absolute -right-12 bottom-0 h-56 w-56 rotate-180 text-blue-muted opacity-20" />
 
           <div className="mx-auto grid max-w-7xl items-start gap-12 px-5 md:grid-cols-[1.05fr_0.95fr] lg:px-8">
             <div className="relative z-10 max-w-xl">
-              <Botanical className="opacity-0 translate-y-5 animate-hero-fade [animation-fill-mode:forwards] h-12 w-12 text-blue-soft" style={{ animationDelay: '0ms' }} />
+              <Botanical className="opacity-0 translate-y-5 animate-hero-fade [animation-fill-mode:forwards] h-8 w-8 text-blue-soft" style={{ animationDelay: '0ms' }} />
               <AnimatedText
                 text={"THE WORLD OF\nSTARLING TALES"}
                 className="items-start"
                 textDelay={0.15}
                 initialY={20}
-                textClassName="text-left font-display text-[32px] font-semibold leading-[0.98] tracking-[0.04em] text-text-dark sm:text-[44px] lg:text-[52px] whitespace-pre-line mt-4"
+                textClassName="text-left font-display text-[32px] font-semibold leading-[0.98] tracking-[0.04em] text-text-dark sm:text-[44px] lg:text-[52px] whitespace-pre-line mt-2"
                 underlineClassName="text-blue-soft -bottom-6 w-[220px] sm:w-[300px] lg:w-[360px]"
                 underlinePath="M 0,10 Q 75,0 150,10 Q 225,20 300,10"
                 underlineHoverPath="M 0,10 Q 75,20 150,10 Q 225,0 300,10"
@@ -1581,11 +1581,11 @@ function App() {
               </div>
             </div>
 
-            <div className="relative z-10 mx-auto w-full max-w-[520px] md:translate-y-8">
+            <div className="relative z-10 mx-auto w-full max-w-[520px] md:translate-y-4">
               <img
-                className="h-auto w-full rounded-lg object-cover shadow-[0_26px_60px_rgba(44,62,53,0.18)]"
-                src="1.jpeg"
-                alt="Crocheted dog resting on a soft polka-dot blanket"
+                className="w-full h-[400px] sm:h-[480px] md:h-[520px] lg:h-[560px] rounded-lg object-cover shadow-[0_26px_60px_rgba(44,62,53,0.18)]"
+                src="22.png"
+                alt="Beautifully crafted premium toys and nursery decor items from Starling Tales"
                 decoding="async"
               />
             </div>
