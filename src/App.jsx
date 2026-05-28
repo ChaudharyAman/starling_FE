@@ -1257,11 +1257,11 @@ function App() {
       </header>
 
       <main id="home" className="pt-[68px]">
-        <section className="relative min-h-[calc(100vh-120px)] max-h-[640px] overflow-hidden bg-cream">
+        <section className="relative overflow-hidden bg-cream pt-8 pb-12 md:pt-16 md:pb-20 lg:pt-20 lg:pb-24">
           <Botanical className="absolute -left-10 top-12 h-44 w-44 text-blue-muted opacity-20" />
           <Botanical className="absolute -right-12 bottom-0 h-56 w-56 rotate-180 text-blue-muted opacity-20" />
 
-          <div className="mx-auto grid max-w-7xl items-start gap-12 px-5 pb-16 pt-4 md:grid-cols-[1.05fr_0.95fr] md:pb-20 lg:px-8 md:pt-12 lg:pt-16">
+          <div className="mx-auto grid max-w-7xl items-start gap-12 px-5 md:grid-cols-[1.05fr_0.95fr] lg:px-8">
             <div className="relative z-10 max-w-xl">
               <Botanical className="opacity-0 translate-y-5 animate-hero-fade [animation-fill-mode:forwards] h-12 w-12 text-blue-soft" style={{ animationDelay: '0ms' }} />
               <AnimatedText
