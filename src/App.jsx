@@ -1180,23 +1180,21 @@ function App() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[var(--cream)] font-body text-[var(--text-body)]">
-      <div className="bg-[var(--blue-soft)] px-4 py-2 text-center text-[13px] font-normal tracking-[0.03em] text-white">
+      {/* <div className="bg-[var(--blue-soft)] px-4 py-2 text-center text-[13px] font-normal tracking-[0.03em] text-white">
         Free Shipping on U.S. orders of $100+ with Complimentary Returns
-      </div>
+      </div> */}
 
       <header
-        className={`sticky top-0 z-50 border-b border-[rgba(240,233,223,0.8)] bg-[var(--cream)] transition-shadow duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 border-b border-[rgba(240,233,223,0.8)] bg-[var(--cream)] transition-shadow duration-300 ${
           scrolled ? 'shadow-[0_10px_30px_rgba(44,62,53,0.08)]' : ''
         }`}
       >
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8"
+          className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-2 lg:px-6"
           aria-label="Primary navigation"
         >
           <a href="#home" className="flex cursor-pointer items-center gap-3 text-[var(--text-dark)]">
-            <span className="grid h-10 w-10 place-items-center rounded-full border border-[var(--blue-muted)] bg-white/60 text-[var(--blue-soft)]">
-              <Icon name="bird" className="h-6 w-6" />
-            </span>
+            <img src="/logo.png" alt="Starling Tales logo" className="nav-logo" />
             <span className="font-display text-xl italic leading-none sm:text-2xl">Starling Tales</span>
           </a>
 
@@ -1246,7 +1244,7 @@ function App() {
         </nav>
       </header>
 
-      <main id="home">
+      <main id="home" className="pt-[92px]">
         <section className="relative min-h-[calc(100vh-98px)] overflow-hidden bg-[var(--cream)]">
           <Botanical className="absolute -left-10 top-12 h-44 w-44 text-[var(--blue-muted)] opacity-20" />
           <Botanical className="absolute -right-12 bottom-0 h-56 w-56 rotate-180 text-[var(--blue-muted)] opacity-20" />
@@ -1436,10 +1434,8 @@ function App() {
           <Botanical className="absolute bottom-8 right-0 h-48 w-48 rotate-180 text-[var(--blue-muted)] opacity-20" />
 
           <div className="relative z-10 mx-auto grid max-w-5xl items-center gap-10 md:grid-cols-[260px_1fr]">
-            <div className="brand-badge mx-auto">
-              <Icon name="bird" className="h-16 w-16 text-[var(--blue-soft)]" />
-              <span className="font-display text-2xl italic text-[var(--text-dark)]">Starling</span>
-              <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--blue-soft)]">Tales</span>
+            <div className="brand-badge mx-auto" aria-label="Starling Tales logo">
+              <img src="/logo.png" alt="Starling Tales logo" className="brand-logo" />
             </div>
 
             <div className="text-center md:text-left">
@@ -1495,7 +1491,7 @@ function App() {
         </div>
 
         <div className="mx-auto mt-12 flex max-w-7xl flex-col gap-3 border-t border-white/15 pt-6 text-[12px] font-light text-white/60 sm:flex-row sm:items-center sm:justify-between">
-          <p>&copy; 2025 Starling Tales. All rights reserved.</p>
+          <p>&copy; 2026 Starling Tales. All rights reserved.</p>
           <div className="flex gap-5">
             <a className="cursor-pointer hover:text-white" href="#home">
               Privacy Policy
