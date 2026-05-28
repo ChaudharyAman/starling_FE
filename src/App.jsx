@@ -384,7 +384,6 @@ const navLinks = [
   'Our Residents',
   'Gift Hampers',
   'Nursery Collection',
-  'Personalisation',
   'About Us',
 ]
 
@@ -1637,9 +1636,9 @@ function App() {
 
         <section id="about-us" className="reveal grid bg-cream md:grid-cols-2">
           <img
-            className="h-full min-h-[420px] w-full object-cover"
-            src="4.jpeg"
-            alt="Pastel unicorn quilt held up to show handcrafted nursery stitching"
+            className="w-full h-[410px] sm:h-[540px] md:h-[635px] lg:h-[820px] object-cover self-center"
+            src="23.png"
+            alt="Handcrafted toys and soft textiles reflecting Starling Tales philosophy"
             loading="lazy"
             decoding="async"
           />
