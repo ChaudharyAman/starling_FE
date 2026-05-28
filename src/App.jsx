@@ -35,7 +35,7 @@ const PRODUCTS = [
   },
   {
     id: 2,
-    name: 'Dreamer Doll ',
+    name: 'Buttercup Lamb ',
     tagline: 'Gentle, wise, and endlessly comforting.',
     price: 1099,
     originalPrice: null,
@@ -116,7 +116,7 @@ const PRODUCTS = [
   },
   {
     id: 5,
-    name: 'Buttercup Lamb',
+    name: 'Bunny Backpack',
     tagline: 'A little lamb, a lot of love.',
     price: 1399,
     originalPrice: null,
@@ -141,7 +141,7 @@ const PRODUCTS = [
   },
   {
     id: 6,
-    name: 'Cowgirl Doll',
+    name: 'Bunny Family Basket',
     tagline: 'Handmade with love, dressed for adventure.',
     price: 1599,
     originalPrice: 1899,
@@ -169,7 +169,7 @@ const PRODUCTS = [
   },
   {
     id: 7,
-    name: 'Bunny Backpack',
+    name: 'Dreamer Doll',
     tagline: "Your little one's adventure companion.",
     price: 1799,
     originalPrice: null,
@@ -222,7 +222,7 @@ const PRODUCTS = [
   },
   {
     id: 9,
-    name: 'Bunny Family Basket',
+    name: 'Cowgirl Doll',
     tagline: 'Three best friends in their cosy home.',
     price: 3499,
     originalPrice: null,
