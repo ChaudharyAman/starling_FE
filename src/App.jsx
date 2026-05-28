@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 import { GetStartedButton } from '@/components/ui/get-started-button'
+import { AnimatedText } from '@/components/ui/animated-underline-text-one'
 
 const PRODUCTS = [
   {
@@ -317,10 +318,6 @@ function readStorage(key, fallback) {
   }
 }
 
-function badgeClass(badge) {
-  return badge ? `badge-${badge.toLowerCase().replace(/\s+/g, '-')}` : ''
-}
-
 function Icon({ name, className = '' }) {
   const iconProps = {
     className,
@@ -472,17 +469,17 @@ function Botanical({ className = '' }) {
 
 function HeartDivider({ centered = true }) {
   return (
-    <div className={`heart-divider ${centered ? 'mx-auto' : ''}`} aria-hidden="true">
-      <span />
+    <div className={`flex w-full max-w-[190px] items-center gap-3 text-blue-soft ${centered ? 'mx-auto' : ''}`} aria-hidden="true">
+      <span className="h-0.5 flex-1 border-t border-dashed border-blue-muted" />
       <Icon name="heart" className="h-5 w-5" />
-      <span />
+      <span className="h-0.5 flex-1 border-t border-dashed border-blue-muted" />
     </div>
   )
 }
 
 function ButtonLink({ children, href = '#collection' }) {
   return (
-    <a className="story-button group" href={href} aria-label={children}>
+    <a className="inline-flex min-h-12 items-center justify-center gap-2.5 border border-text-dark px-[22px] py-3.5 text-xs font-medium tracking-[0.17em] uppercase transition-colors duration-200 hover:bg-text-dark hover:text-cream focus-visible:bg-text-dark focus-visible:text-cream group" href={href} aria-label={children}>
       <span>{children}</span>
       <Icon name="heart" className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
     </a>
@@ -491,27 +488,33 @@ function ButtonLink({ children, href = '#collection' }) {
 
 function ProductCard({ product, isWishlisted, onWishlist, onQuickView, onAddToCart }) {
   return (
-    <article className="product-card" data-product-id={product.id}>
-      <div className="card-image-wrap">
+    <article className="group relative overflow-hidden rounded-xl bg-white shadow-[0_2px_12px_rgba(44,62,53,0.07)] cursor-pointer transition-all duration-220 hover:-translate-y-1.25 hover:shadow-[0_8px_28px_rgba(44,62,53,0.13)]" data-product-id={product.id}>
+      <div className="relative aspect-[4/5] overflow-hidden">
         <button
           className="h-full w-full text-left"
           type="button"
           onClick={() => onQuickView(product.id)}
           aria-label={`View details of ${product.name}`}
         >
-          <img src={product.image} alt={product.name} loading="lazy" decoding="async" />
+          <img src={product.image} alt={product.name} className="w-full h-full object-cover transition-transform duration-350 group-hover:scale-104 motion-reduce:group-hover:scale-100" loading="lazy" decoding="async" />
         </button>
 
         {product.badge ? (
-          <span className={`card-badge ${badgeClass(product.badge)}`} aria-label={product.badge}>
+          <span className={`absolute top-3 left-3 z-10 rounded-full px-2.5 py-1 text-[10px] font-medium tracking-widest leading-tight uppercase pointer-events-none text-white ${
+            product.badge.toLowerCase().replace(/\s+/g, '-') === 'bestseller' ? 'bg-gold' :
+            product.badge.toLowerCase().replace(/\s+/g, '-') === 'new' ? 'bg-blue-soft' :
+            product.badge.toLowerCase().replace(/\s+/g, '-') === 'sale' ? 'bg-danger' :
+            product.badge.toLowerCase().replace(/\s+/g, '-') === 'gift-set' ? 'bg-brown-warm' :
+            'bg-text-dark text-cream'
+          }`} aria-label={product.badge}>
             {product.badge}
           </span>
         ) : null}
 
-        <div className="card-overlay" role="group" aria-label={`Quick actions for ${product.name}`}>
+        <div className="absolute inset-0 z-10 flex flex-col items-end justify-between p-3 bg-cream/0 opacity-0 transition-all duration-220 group-hover:opacity-100 group-hover:bg-cream/12 group-focus-within:opacity-100 group-focus-within:bg-cream/12" role="group" aria-label={`Quick actions for ${product.name}`}>
           <div className="flex flex-col items-end">
             <button
-              className={`overlay-btn wishlist-btn ${isWishlisted ? 'wishlisted' : ''}`}
+              className={`flex h-11 w-11 items-center justify-center border-none rounded-full mb-2 bg-white text-text-dark shadow-[0_2px_8px_rgba(0,0,0,0.12)] transition-all duration-150 hover:bg-blue-light hover:scale-108 focus-visible:bg-blue-light focus-visible:scale-108 ${isWishlisted ? 'text-danger fill-danger' : ''}`}
               type="button"
               data-product-id={product.id}
               aria-label={`${isWishlisted ? 'Remove' : 'Add'} ${product.name} ${isWishlisted ? 'from' : 'to'} wishlist`}
@@ -521,10 +524,10 @@ function ProductCard({ product, isWishlisted, onWishlist, onQuickView, onAddToCa
                 onWishlist(product.id)
               }}
             >
-              <Icon name="heart" className="icon-heart h-5 w-5" />
+              <Icon name="heart" className={`h-5 w-5 ${isWishlisted ? 'fill-danger text-danger' : ''}`} />
             </button>
             <button
-              className="overlay-btn quickview-btn"
+              className="flex h-11 w-11 items-center justify-center border-none rounded-full mb-2 bg-white text-text-dark shadow-[0_2px_8px_rgba(0,0,0,0.12)] transition-all duration-150 hover:bg-blue-light hover:scale-108 focus-visible:bg-blue-light focus-visible:scale-108"
               type="button"
               aria-label={`Quick view ${product.name}`}
               title="Quick View"
@@ -538,7 +541,7 @@ function ProductCard({ product, isWishlisted, onWishlist, onQuickView, onAddToCa
           </div>
 
           <button
-            className="overlay-addcart-btn"
+            className="absolute bottom-0 inset-x-0 flex h-11 items-center justify-center gap-2 border-none bg-text-dark text-cream text-xs font-medium tracking-[0.16em] uppercase translate-y-full transition-all duration-220 group-hover:translate-y-0 group-focus-within:translate-y-0 hover:bg-blue-soft focus-visible:translate-y-0 focus-visible:bg-blue-soft"
             type="button"
             aria-label={`Add ${product.name} to cart`}
             onClick={(event) => {
@@ -552,27 +555,27 @@ function ProductCard({ product, isWishlisted, onWishlist, onQuickView, onAddToCa
         </div>
       </div>
 
-      <div className="card-body">
-        <p className="card-category">{product.category}</p>
-        <h3 className="card-name">{product.name}</h3>
-        <p className="card-tagline">{product.tagline}</p>
+      <div className="p-5 pb-5">
+        <p className="mb-1 text-blue-soft text-[10px] font-medium tracking-widest uppercase">{product.category}</p>
+        <h3 className="mb-1 text-text-dark font-display text-lg font-semibold">{product.name}</h3>
+        <p className="min-h-[54px] mb-2.5 text-text-muted text-xs font-light leading-normal">{product.tagline}</p>
 
-        <div className="card-rating" aria-label={`Rated ${product.rating} out of 5`}>
-          <span className="stars" aria-hidden="true">
+        <div className="flex items-center gap-1.25 mb-2.5" aria-label={`Rated ${product.rating} out of 5`}>
+          <span className="text-gold text-xs tracking-normal" aria-hidden="true">
             ★★★★★
           </span>
-          <span className="rating-num">{product.rating.toFixed(1)}</span>
-          <span className="review-count">({product.reviews})</span>
+          <span className="text-text-dark text-xs font-medium">{product.rating.toFixed(1)}</span>
+          <span className="text-text-muted text-[11px]">({product.reviews})</span>
         </div>
 
-        <div className="card-price">
-          <span className="price-current">{formatPrice(product.price)}</span>
+        <div className="flex items-center gap-2 mb-3.5">
+          <span className="text-text-dark text-lg font-medium">{formatPrice(product.price)}</span>
           {product.originalPrice ? (
-            <span className="price-original">{formatPrice(product.originalPrice)}</span>
+            <span className="text-text-muted text-sm line-through">{formatPrice(product.originalPrice)}</span>
           ) : null}
         </div>
 
-        <div className="card-actions">
+        <div className="flex items-center gap-2.5">
           <GetStartedButton
             className="flex-1 text-xs font-semibold uppercase tracking-wider h-11"
             onClick={() => onQuickView(product.id)}
@@ -581,13 +584,15 @@ function ProductCard({ product, isWishlisted, onWishlist, onQuickView, onAddToCa
             View Details
           </GetStartedButton>
           <button
-            className={`btn-wishlist-icon ${isWishlisted ? 'wishlisted' : ''}`}
+            className={`flex h-11 w-11 items-center justify-center border border-cream-dark rounded bg-cream text-text-muted transition-colors duration-200 ${
+              isWishlisted ? 'border-danger bg-red-50 text-danger' : 'hover:border-danger hover:bg-red-50 hover:text-danger focus-visible:border-danger focus-visible:bg-red-50 focus-visible:text-danger'
+            }`}
             type="button"
             data-product-id={product.id}
             onClick={() => onWishlist(product.id)}
             aria-label={`Toggle wishlist for ${product.name}`}
           >
-            <Icon name="heart" className="h-5 w-5" />
+            <Icon name="heart" className={`h-5 w-5 ${isWishlisted ? 'fill-danger text-danger' : ''}`} />
           </button>
         </div>
       </div>
@@ -646,87 +651,93 @@ function ProductModal({
     : null
 
   return (
-    <div className="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-product-name">
-      <button className="modal-backdrop" type="button" onClick={onClose} aria-label="Close product detail" />
+    <div className="fixed inset-0 z-[1000] flex items-stretch justify-end" role="dialog" aria-modal="true" aria-labelledby="modal-product-name">
+      <button className="absolute inset-0 bg-text-dark/45 backdrop-blur-[2px] animate-fade-in" type="button" onClick={onClose} aria-label="Close product detail" />
 
-      <div className="modal-drawer" ref={drawerRef}>
-        <button className="modal-close" type="button" onClick={onClose} aria-label="Close product detail">
+      <div className="relative flex h-full w-full max-w-[900px] flex-col overflow-y-auto bg-cream animate-slide-in-right" ref={drawerRef}>
+        <button className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center border border-cream-dark rounded-full bg-white text-text-dark transition-colors duration-150 hover:bg-cream-dark" type="button" onClick={onClose} aria-label="Close product detail">
           <Icon name="x" className="h-5 w-5" />
         </button>
 
-        <div className="modal-content">
-          <div className="modal-gallery">
-            <div className="gallery-main">
-              <img src={mainImage} alt={product.name} loading="eager" decoding="async" />
+        <div className="grid min-h-full grid-cols-1 md:grid-cols-2">
+          <div className="relative p-10 px-7.5 bg-white">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-lg mb-3">
+              <img src={mainImage} alt={product.name} className="w-full h-full object-cover" loading="eager" decoding="async" />
               <button
-                className={`gallery-wishlist-btn ${isWishlisted ? 'wishlisted' : ''}`}
+                className={`absolute top-3 right-3 flex h-11 w-11 items-center justify-center border-none rounded-full bg-white text-text-muted shadow-[0_2px_10px_rgba(0,0,0,0.12)] transition-all duration-200 hover:text-danger hover:scale-108 focus-visible:text-danger focus-visible:scale-108 ${isWishlisted ? 'text-danger fill-danger' : ''}`}
                 type="button"
                 onClick={() => onWishlist(product.id)}
                 aria-label={`Toggle wishlist for ${product.name}`}
               >
-                <Icon name="heart" className="h-5 w-5" />
+                <Icon name="heart" className={`h-5 w-5 ${isWishlisted ? 'fill-danger text-danger' : ''}`} />
               </button>
             </div>
-            <div className="gallery-thumbs" role="list" aria-label="Product images">
+            <div className="flex flex-wrap gap-2" role="list" aria-label="Product images">
               {product.gallery.map((image, index) => (
                 <button
                   key={image}
-                  className={`gallery-thumb ${mainImage === image ? 'active' : ''}`}
+                  className={`w-15 h-15 overflow-hidden border-2 rounded bg-cream transition-colors duration-150 ${mainImage === image ? 'border-blue-soft' : 'border-transparent hover:border-blue-soft focus-visible:border-blue-soft'}`}
                   type="button"
                   role="listitem"
                   onClick={() => setMainImage(image)}
                   aria-label={`View image ${index + 1}`}
                 >
-                  <img src={image} alt={`${product.name} view ${index + 1}`} loading="lazy" decoding="async" />
+                  <img src={image} alt={`${product.name} view ${index + 1}`} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                 </button>
               ))}
             </div>
           </div>
 
-          <div className="modal-info">
-            <div className="modal-meta">
-              <span className="modal-cat-label">{product.category}</span>
+          <div className="overflow-y-auto p-10 pr-9 pl-7.5">
+            <div className="flex items-center gap-2.5 mb-2">
+              <span className="text-blue-soft text-xs font-medium tracking-widest uppercase">{product.category}</span>
               {product.badge ? (
-                <span className={`card-badge static ${badgeClass(product.badge)}`}>{product.badge}</span>
+                <span className={`static rounded-full px-2.5 py-1 text-[10px] font-medium tracking-widest leading-tight uppercase pointer-events-none text-white ${
+                  product.badge.toLowerCase().replace(/\s+/g, '-') === 'bestseller' ? 'bg-gold' :
+                  product.badge.toLowerCase().replace(/\s+/g, '-') === 'new' ? 'bg-blue-soft' :
+                  product.badge.toLowerCase().replace(/\s+/g, '-') === 'sale' ? 'bg-danger' :
+                  product.badge.toLowerCase().replace(/\s+/g, '-') === 'gift-set' ? 'bg-brown-warm' :
+                  'bg-text-dark text-cream'
+                }`}>{product.badge}</span>
               ) : null}
             </div>
 
-            <h2 id="modal-product-name" className="modal-name">
+            <h2 id="modal-product-name" className="mb-2.5 text-text-dark font-display text-3xl font-semibold leading-tight">
               {product.name}
             </h2>
 
-            <div className="modal-rating">
-              <span className="stars" aria-hidden="true">
+            <div className="flex flex-wrap items-center gap-1.5 mb-3.5">
+              <span className="text-gold text-xs tracking-normal" aria-hidden="true">
                 ★★★★★
               </span>
-              <span className="rating-num">{product.rating.toFixed(1)}</span>
-              <span className="review-count">({product.reviews} reviews)</span>
-              <span className="rating-divider">·</span>
-              <a href="#reviews-section" className="read-reviews-link">
+              <span className="text-text-dark text-xs font-medium">{product.rating.toFixed(1)}</span>
+              <span className="text-text-muted text-[11px]">({product.reviews} reviews)</span>
+              <span className="mx-2 text-text-muted">·</span>
+              <a href="#reviews-section" className="text-blue-soft text-xs underline">
                 Read reviews
               </a>
             </div>
 
-            <div className="modal-price">
-              <span className="modal-price-main">{formatPrice(product.price)}</span>
+            <div className="flex flex-wrap items-baseline gap-2.5 mb-4.5">
+              <span className="text-text-dark text-2xl font-medium">{formatPrice(product.price)}</span>
               {product.originalPrice ? (
-                <span className="modal-price-strike">{formatPrice(product.originalPrice)}</span>
+                <span className="text-text-muted text-base line-through">{formatPrice(product.originalPrice)}</span>
               ) : null}
-              {discount ? <span className="modal-discount-tag">{discount}% OFF</span> : null}
+              {discount ? <span className="rounded px-2 py-0.75 bg-amber-50 text-amber-800 text-[11px] font-medium">{discount}% OFF</span> : null}
             </div>
 
-            <hr className="modal-divider" />
-            <p className="modal-tagline">{product.tagline}</p>
+            <hr className="border-none border-t border-cream-dark my-4" />
+            <p className="mb-5 text-brown-warm font-serif-poetic text-lg italic leading-relaxed">{product.tagline}</p>
 
-            <div className="modal-variants">
-              <p className="variant-label">
-                Select Option: <span className="selected-variant">{selectedVariant?.label}</span>
+            <div className="mb-5">
+              <p className="mb-2.5 text-text-body text-xs font-medium tracking-widest uppercase">
+                Select Option: <span className="text-blue-soft">{selectedVariant?.label}</span>
               </p>
-              <div className="variant-btn-group" role="radiogroup" aria-label="Product variants">
+              <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Product variants">
                 {product.variants.map((variant) => (
                   <button
                     key={variant.sku}
-                    className={`variant-pill ${selectedVariant?.sku === variant.sku ? 'selected' : ''}`}
+                    className={`min-h-[44px] border rounded-3xl px-4 py-2 text-xs transition-colors duration-150 ${selectedVariant?.sku === variant.sku ? 'border-text-dark bg-text-dark text-white' : 'border-cream-dark bg-white text-text-body hover:border-blue-soft hover:text-blue-soft focus-visible:border-blue-soft focus-visible:text-blue-soft'}`}
                     type="button"
                     role="radio"
                     aria-checked={selectedVariant?.sku === variant.sku}
@@ -738,22 +749,22 @@ function ProductModal({
               </div>
             </div>
 
-            <div className="modal-qty">
-              <p className="variant-label">Quantity</p>
-              <div className="qty-control" role="group" aria-label="Quantity selector">
+            <div className="mb-5">
+              <p className="mb-2.5 text-text-body text-xs font-medium tracking-widest uppercase">Quantity</p>
+              <div className="inline-flex items-center overflow-hidden border border-cream-dark rounded-md" role="group" aria-label="Quantity selector">
                 <button
-                  className="qty-btn"
+                  className="flex h-11 w-11 items-center justify-center border-none bg-white text-text-dark transition-colors duration-150 hover:bg-cream-dark focus-visible:bg-cream-dark"
                   type="button"
                   onClick={() => setQuantity((value) => Math.max(1, value - 1))}
                   aria-label="Decrease quantity"
                 >
                   <Icon name="minus" className="h-4 w-4" />
                 </button>
-                <span className="qty-display" aria-live="polite">
+                <span className="w-12 border-x border-cream-dark bg-white text-center text-base font-medium leading-[44px] text-text-dark" aria-live="polite">
                   {quantity}
                 </span>
                 <button
-                  className="qty-btn"
+                  className="flex h-11 w-11 items-center justify-center border-none bg-white text-text-dark transition-colors duration-150 hover:bg-cream-dark focus-visible:bg-cream-dark"
                   type="button"
                   onClick={() => setQuantity((value) => value + 1)}
                   aria-label="Increase quantity"
@@ -763,9 +774,9 @@ function ProductModal({
               </div>
             </div>
 
-            <div className="modal-cta-group">
+            <div className="flex gap-2.5 mb-5">
               <button
-                className="btn-add-to-cart-primary"
+                className="flex-1 flex min-h-[48px] items-center justify-center gap-2 border-none rounded-md px-5 py-3.5 bg-text-dark text-cream text-sm font-medium tracking-widest uppercase transition-colors duration-200 hover:bg-blue-soft focus-visible:bg-blue-soft"
                 type="button"
                 onClick={() => onAddToCart(product.id, selectedVariant?.sku, quantity)}
                 aria-label={`Add ${product.name} to cart`}
@@ -774,61 +785,61 @@ function ProductModal({
                 Add to Cart
               </button>
               <button
-                className={`btn-wishlist-secondary ${isWishlisted ? 'wishlisted' : ''}`}
+                className={`flex min-h-[48px] items-center gap-1.5 border border-cream-dark rounded-md px-4.5 py-3.5 bg-white text-text-body text-xs font-medium whitespace-nowrap transition-colors duration-200 ${isWishlisted ? 'border-danger text-danger' : 'hover:border-danger hover:text-danger focus-visible:border-danger focus-visible:text-danger'}`}
                 type="button"
                 onClick={() => onWishlist(product.id)}
                 aria-label={`Save ${product.name} to wishlist`}
               >
-                <Icon name="heart" className="h-5 w-5" />
+                <Icon name="heart" className={`h-5 w-5 ${isWishlisted ? 'fill-danger text-danger' : ''}`} />
                 <span>{isWishlisted ? 'Saved to Wishlist' : 'Save to Wishlist'}</span>
               </button>
             </div>
 
-            <div className="modal-trust-row">
+            <div className="flex gap-3 mb-6 border border-cream-dark rounded-lg p-3.5 bg-white">
               {[
                 ['shield', 'Safety Tested'],
                 ['truck', 'Free Shipping ₹1000+'],
                 ['refresh', 'Easy Returns'],
               ].map(([icon, label]) => (
-                <div className="trust-badge" key={label}>
-                  <Icon name={icon} className="h-[18px] w-[18px]" />
+                <div className="flex flex-1 flex-col items-center gap-1 text-text-muted text-[10px] tracking-wide text-center" key={label}>
+                  <Icon name={icon} className="h-[18px] w-[18px] text-blue-soft" />
                   <span>{label}</span>
                 </div>
               ))}
             </div>
 
-            <div className="modal-accordion">
-              <details className="accordion-item" open>
-                <summary className="accordion-header">
+            <div className="border-t border-cream-dark">
+              <details className="border-b border-cream-dark" open>
+                <summary className="flex items-center justify-between py-4 text-text-dark cursor-pointer text-[13px] font-medium tracking-wide list-none select-none">
                   Description
-                  <Icon name="arrowRight" className="acc-icon h-4 w-4 rotate-90" />
+                  <Icon name="arrowRight" className="transition-transform duration-200 group-open:rotate-270 h-4 w-4 rotate-90" />
                 </summary>
-                <div className="accordion-body">
-                  <p className="acc-text">{product.description}</p>
+                <div className="pb-4">
+                  <p className="text-text-body text-[13px] font-light leading-relaxed">{product.description}</p>
                 </div>
               </details>
 
-              <details className="accordion-item">
-                <summary className="accordion-header">
+              <details className="border-b border-cream-dark">
+                <summary className="flex items-center justify-between py-4 text-text-dark cursor-pointer text-[13px] font-medium tracking-wide list-none select-none">
                   Product Details
-                  <Icon name="arrowRight" className="acc-icon h-4 w-4 rotate-90" />
+                  <Icon name="arrowRight" className="transition-transform duration-200 group-open:rotate-270 h-4 w-4 rotate-90" />
                 </summary>
-                <div className="accordion-body">
-                  <ul className="acc-list">
+                <div className="pb-4">
+                  <ul className="p-0 list-none">
                     {product.details.map((detail) => (
-                      <li key={detail}>{detail}</li>
+                      <li className="flex items-start gap-2 py-1 text-text-body text-[13px] font-light before:content-['-'] before:text-blue-soft" key={detail}>{detail}</li>
                     ))}
                   </ul>
                 </div>
               </details>
 
-              <details className="accordion-item">
-                <summary className="accordion-header">
+              <details className="border-b border-cream-dark">
+                <summary className="flex items-center justify-between py-4 text-text-dark cursor-pointer text-[13px] font-medium tracking-wide list-none select-none">
                   Gifting & Packaging
-                  <Icon name="arrowRight" className="acc-icon h-4 w-4 rotate-90" />
+                  <Icon name="arrowRight" className="transition-transform duration-200 group-open:rotate-270 h-4 w-4 rotate-90" />
                 </summary>
-                <div className="accordion-body">
-                  <p className="acc-text">
+                <div className="pb-4">
+                  <p className="text-text-body text-[13px] font-light leading-relaxed">
                     Every Starling Tales piece is lovingly packaged in a keepsake box with tissue
                     paper and a handwritten gift note, ready to gift straight from the box.
                   </p>
@@ -858,60 +869,60 @@ function CartDrawer({ cart, products, onClose, onQty, onRemove, onCheckout }) {
   }, [])
 
   return (
-    <div className="cart-overlay" role="dialog" aria-modal="true" aria-label="Shopping cart">
-      <button className="cart-backdrop" type="button" onClick={onClose} aria-label="Close cart" />
-      <aside className="cart-panel" ref={panelRef}>
-        <div className="cart-header">
-          <h2 className="cart-title">
+    <div className="fixed inset-0 z-[1100] flex items-stretch justify-end" role="dialog" aria-modal="true" aria-label="Shopping cart">
+      <button className="absolute inset-0 bg-text-dark/45 backdrop-blur-[2px] animate-fade-in" type="button" onClick={onClose} aria-label="Close cart" />
+      <aside className="relative flex h-full w-full max-w-[420px] flex-col bg-cream animate-slide-in-right" ref={panelRef}>
+        <div className="flex items-center justify-between border-b border-cream-dark p-5 px-6 bg-white">
+          <h2 className="flex items-center gap-2.5 text-text-dark font-display text-xl font-semibold">
             <Icon name="bag" className="h-5 w-5" />
             Your Cart
-            <span className="cart-count-chip">{cartCount} items</span>
+            <span className="rounded-full px-2.5 py-0.75 bg-blue-light text-text-dark font-body text-[11px] font-medium tracking-wide">{cartCount} items</span>
           </h2>
-          <button className="cart-close" type="button" onClick={onClose} aria-label="Close cart">
+          <button className="flex h-11 w-11 items-center justify-center border border-cream-dark rounded-full bg-cream text-text-dark" type="button" onClick={onClose} aria-label="Close cart">
             <Icon name="x" className="h-5 w-5" />
           </button>
         </div>
 
         {cart.length === 0 ? (
-          <div className="cart-empty">
-            <Icon name="box" className="cart-empty-svg" />
-            <p className="cart-empty-title">Your cart is empty</p>
-            <p className="cart-empty-sub">
+          <div className="flex flex-1 flex-col items-center justify-center p-10 px-6 text-center">
+            <Icon name="box" className="w-13 h-13 mb-4 text-blue-soft" />
+            <p className="mb-2 text-text-dark font-display text-xl">Your cart is empty</p>
+            <p className="mb-5 text-text-muted text-[13px] leading-relaxed">
               Explore our handcrafted collection and find something special.
             </p>
-            <button className="btn-browse" type="button" onClick={onClose}>
+            <button className="min-h-[44px] border border-text-dark rounded px-7 py-3 bg-transparent text-text-dark text-xs font-medium tracking-widest uppercase transition-colors duration-200 hover:bg-text-dark hover:text-cream focus-visible:bg-text-dark focus-visible:text-cream" type="button" onClick={onClose}>
               Browse Collection
             </button>
           </div>
         ) : (
           <>
-            <div className="cart-items" role="list" aria-label="Cart items">
+            <div className="flex flex-1 flex-col gap-3 overflow-y-auto p-4" role="list" aria-label="Cart items">
               {cart.map((item) => {
                 const product = products.find((entry) => entry.id === item.productId)
                 if (!product) return null
                 const variant = product.variants.find((entry) => entry.sku === item.variantSku)
                 return (
-                  <div className="cart-item" role="listitem" key={`${item.productId}-${item.variantSku}`}>
-                    <img src={product.image} alt={product.name} className="cart-item-img" loading="lazy" />
-                    <div className="cart-item-info">
-                      <p className="cart-item-cat">{product.category}</p>
-                      <p className="cart-item-name">{product.name}</p>
-                      <p className="cart-item-variant">{variant?.label || item.variantSku}</p>
-                      <div className="cart-item-bottom">
-                        <div className="cart-item-qty-wrap">
+                  <div className="flex gap-3.5 border border-cream-dark rounded-lg p-3.5 bg-white animate-fade-in" role="listitem" key={`${item.productId}-${item.variantSku}`}>
+                    <img src={product.image} alt={product.name} className="w-18 h-22 shrink-0 rounded-md object-cover" loading="lazy" />
+                    <div className="min-w-0 flex-1">
+                      <p className="mb-0.5 text-blue-soft text-[10px] font-medium tracking-widest uppercase">{product.category}</p>
+                      <p className="overflow-hidden mb-0.5 text-text-dark font-display text-sm font-semibold text-ellipsis whitespace-nowrap">{product.name}</p>
+                      <p className="mb-2.5 text-text-muted text-[11px]">{variant?.label || item.variantSku}</p>
+                      <div className="flex items-center justify-between gap-2">
+                        <div className="flex items-center overflow-hidden border border-cream-dark rounded">
                           <button
-                            className="cart-item-qty-btn"
+                            className="w-8 h-8 border-none bg-cream text-text-dark text-sm transition-colors duration-150 hover:bg-blue-light focus-visible:bg-blue-light"
                             type="button"
                             onClick={() => onQty(product.id, item.variantSku, -1)}
                             aria-label={`Decrease ${product.name} quantity`}
                           >
                             -
                           </button>
-                          <span className="cart-item-qty-num" aria-live="polite">
+                          <span className="w-8 border-x border-cream-dark bg-white text-center text-xs font-medium leading-[32px] text-text-dark" aria-live="polite">
                             {item.quantity}
                           </span>
                           <button
-                            className="cart-item-qty-btn"
+                            className="w-8 h-8 border-none bg-cream text-text-dark text-sm transition-colors duration-150 hover:bg-blue-light focus-visible:bg-blue-light"
                             type="button"
                             onClick={() => onQty(product.id, item.variantSku, 1)}
                             aria-label={`Increase ${product.name} quantity`}
@@ -919,9 +930,9 @@ function CartDrawer({ cart, products, onClose, onQty, onRemove, onCheckout }) {
                             +
                           </button>
                         </div>
-                        <span className="cart-item-price">{formatPrice(product.price * item.quantity)}</span>
+                        <span className="text-text-dark text-sm font-medium whitespace-nowrap">{formatPrice(product.price * item.quantity)}</span>
                         <button
-                          className="cart-item-remove"
+                          className="flex h-8 w-8 items-center justify-center border-none rounded bg-transparent text-text-muted transition-all duration-150 hover:bg-red-50 hover:text-danger focus-visible:bg-red-50 focus-visible:text-danger"
                           type="button"
                           onClick={() => onRemove(product.id, item.variantSku)}
                           aria-label={`Remove ${product.name} from cart`}
@@ -935,32 +946,32 @@ function CartDrawer({ cart, products, onClose, onQty, onRemove, onCheckout }) {
               })}
             </div>
 
-            <div className="cart-footer">
-              <div className="cart-summary">
-                <div className="summary-row">
+            <div className="border-t border-cream-dark p-5 px-6 bg-white">
+              <div className="mb-4">
+                <div className="flex justify-between mb-2 text-text-body text-xs">
                   <span>Subtotal</span>
                   <span>{formatPrice(subtotal)}</span>
                 </div>
-                <div className="summary-row shipping-row">
+                <div className="flex justify-between mb-2 text-text-body text-xs shipping-row">
                   <span>Shipping</span>
                   <span>{shipping === 0 ? 'FREE' : formatPrice(shipping)}</span>
                 </div>
-                <hr className="cart-divider" />
-                <div className="summary-row total-row">
+                <hr className="border-none border-t border-cream-dark my-2.5" />
+                <div className="flex justify-between mb-2 text-text-dark text-base font-medium total-row">
                   <span>Total</span>
                   <span>{formatPrice(subtotal + shipping)}</span>
                 </div>
-                <p className="free-shipping-note">
+                <p className="mt-1 text-success text-[11px] text-center">
                   {remaining > 0
                     ? `Add ${formatPrice(remaining)} more for free shipping.`
                     : 'You qualify for free shipping.'}
                 </p>
               </div>
-              <button className="btn-checkout" type="button" onClick={onCheckout} aria-label="Proceed to checkout">
+              <button className="flex w-full min-h-[48px] items-center justify-center gap-2 border-none rounded-md p-3.75 bg-text-dark text-cream text-sm font-medium tracking-widest uppercase transition-colors duration-200 hover:bg-blue-soft focus-visible:bg-blue-soft" type="button" onClick={onCheckout} aria-label="Proceed to checkout">
                 Proceed to Checkout
                 <Icon name="arrowRight" className="h-4 w-4" />
               </button>
-              <button className="btn-continue-shopping" type="button" onClick={onClose}>
+              <button className="w-full min-h-[44px] border-none bg-transparent text-text-muted text-xs underline" type="button" onClick={onClose}>
                 Continue Shopping
               </button>
             </div>
@@ -980,40 +991,40 @@ function WishlistDrawer({ wishlist, products, onClose, onMoveToCart, onRemove })
   }, [])
 
   return (
-    <div className="cart-overlay" role="dialog" aria-modal="true" aria-label="Wishlist">
-      <button className="cart-backdrop" type="button" onClick={onClose} aria-label="Close wishlist" />
-      <aside className="cart-panel" ref={panelRef}>
-        <div className="cart-header">
-          <h2 className="cart-title">
+    <div className="fixed inset-0 z-[1100] flex items-stretch justify-end" role="dialog" aria-modal="true" aria-label="Wishlist">
+      <button className="absolute inset-0 bg-text-dark/45 backdrop-blur-[2px] animate-fade-in" type="button" onClick={onClose} aria-label="Close wishlist" />
+      <aside className="relative flex h-full w-full max-w-[420px] flex-col bg-cream animate-slide-in-right" ref={panelRef}>
+        <div className="flex items-center justify-between border-b border-cream-dark p-5 px-6 bg-white">
+          <h2 className="flex items-center gap-2.5 text-text-dark font-display text-xl font-semibold">
             <Icon name="heart" className="h-5 w-5" />
             Saved Items
-            <span className="cart-count-chip">{savedProducts.length} saved</span>
+            <span className="rounded-full px-2.5 py-0.75 bg-blue-light text-text-dark font-body text-[11px] font-medium tracking-wide">{savedProducts.length} saved</span>
           </h2>
-          <button className="cart-close" type="button" onClick={onClose} aria-label="Close wishlist">
+          <button className="flex h-11 w-11 items-center justify-center border border-cream-dark rounded-full bg-cream text-text-dark" type="button" onClick={onClose} aria-label="Close wishlist">
             <Icon name="x" className="h-5 w-5" />
           </button>
         </div>
 
         {savedProducts.length === 0 ? (
-          <div className="cart-empty">
-            <Icon name="heart" className="cart-empty-svg" />
-            <p className="cart-empty-title">No saved items yet</p>
-            <p className="cart-empty-sub">Tap the heart on any product to save it here.</p>
-            <button className="btn-browse" type="button" onClick={onClose}>
+          <div className="flex flex-1 flex-col items-center justify-center p-10 px-6 text-center">
+            <Icon name="heart" className="w-13 h-13 mb-4 text-blue-soft" />
+            <p className="mb-2 text-text-dark font-display text-xl">No saved items yet</p>
+            <p className="mb-5 text-text-muted text-[13px] leading-relaxed">Tap the heart on any product to save it here.</p>
+            <button className="min-h-[44px] border border-text-dark rounded px-7 py-3 bg-transparent text-text-dark text-xs font-medium tracking-widest uppercase transition-colors duration-200 hover:bg-text-dark hover:text-cream focus-visible:bg-text-dark focus-visible:text-cream" type="button" onClick={onClose}>
               Explore Collection
             </button>
           </div>
         ) : (
-          <div className="wishlist-grid" role="list" aria-label="Wishlist items">
+          <div className="grid flex-1 grid-cols-2 gap-3 overflow-y-auto p-4" role="list" aria-label="Wishlist items">
             {savedProducts.map((product) => (
-              <div className="wishlist-card" role="listitem" key={product.id}>
-                <img src={product.image} alt={product.name} className="wishlist-card-img" loading="lazy" />
-                <div className="wishlist-card-body">
-                  <p className="wishlist-card-name">{product.name}</p>
-                  <p className="wishlist-card-price">{formatPrice(product.price)}</p>
-                  <div className="wishlist-card-actions">
+              <div className="overflow-hidden border border-cream-dark rounded-lg bg-white animate-fade-in" role="listitem" key={product.id}>
+                <img src={product.image} alt={product.name} className="w-full aspect-square object-cover" loading="lazy" />
+                <div className="p-2.5">
+                  <p className="overflow-hidden mb-0.5 text-text-dark font-display text-xs font-semibold text-ellipsis whitespace-nowrap">{product.name}</p>
+                  <p className="mb-2 text-text-dark text-xs">{formatPrice(product.price)}</p>
+                  <div className="flex gap-1.5">
                     <button
-                      className="wl-add-cart"
+                      className="min-h-[44px] flex-1 border-none rounded p-1.75 bg-text-dark text-cream text-[10px] font-medium tracking-wide uppercase transition-colors duration-150 hover:bg-blue-soft focus-visible:bg-blue-soft"
                       type="button"
                       onClick={() => onMoveToCart(product.id)}
                       aria-label={`Add ${product.name} to cart`}
@@ -1021,7 +1032,7 @@ function WishlistDrawer({ wishlist, products, onClose, onMoveToCart, onRemove })
                       Add to Cart
                     </button>
                     <button
-                      className="wl-remove"
+                      className="flex h-11 min-h-[44px] w-11 items-center justify-center border border-cream-dark rounded bg-white text-text-muted transition-colors duration-150 hover:border-danger hover:text-danger focus-visible:border-danger focus-visible:text-danger"
                       type="button"
                       onClick={() => onRemove(product.id)}
                       aria-label={`Remove ${product.name} from wishlist`}
@@ -1041,9 +1052,9 @@ function WishlistDrawer({ wishlist, products, onClose, onMoveToCart, onRemove })
 
 function Toasts({ toasts }) {
   return (
-    <div className="toast-container" aria-live="polite" aria-atomic="true">
+    <div className="fixed bottom-7 left-1/2 z-[9999] flex flex-col gap-2 pointer-events-none -translate-x-1/2" aria-live="polite" aria-atomic="true">
       {toasts.map((toast) => (
-        <div className="toast" key={toast.id}>
+        <div className="flex items-center gap-2 rounded-[100px] px-5.5 py-3 bg-text-dark text-cream shadow-[0_4px_20px_rgba(0,0,0,0.2)] text-xs font-normal pointer-events-auto whitespace-nowrap animate-toast-in" key={toast.id}>
           {toast.message}
         </div>
       ))}
@@ -1060,8 +1071,10 @@ function App() {
   const [wishlistOpen, setWishlistOpen] = useState(false)
   const [toasts, setToasts] = useState([])
 
-  const cartCount = useMemo(() => cart.reduce((sum, item) => sum + item.quantity, 0), [cart])
+  const cartCount = useMemo(() => cart.reduce((sum, item) => sum + item.quantity, [cart]))
   const activeProduct = PRODUCTS.find((product) => product.id === activeProductId) || null
+
+  const parsedCartCount = useMemo(() => cart.reduce((sum, item) => sum + item.quantity, 0), [cart])
 
   function showToast(message) {
     const id = crypto.randomUUID()
@@ -1179,13 +1192,9 @@ function App() {
   }, [])
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[var(--cream)] font-body text-[var(--text-body)]">
-      {/* <div className="bg-[var(--blue-soft)] px-4 py-2 text-center text-[13px] font-normal tracking-[0.03em] text-white">
-        Free Shipping on U.S. orders of $100+ with Complimentary Returns
-      </div> */}
-
+    <div className="min-h-screen overflow-x-hidden bg-cream font-body text-text-body">
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b border-[rgba(240,233,223,0.8)] bg-[var(--cream)] transition-shadow duration-300 ${
+        className={`fixed inset-x-0 top-0 z-50 border-b border-[rgba(240,233,223,0.8)] bg-cream transition-shadow duration-300 ${
           scrolled ? 'shadow-[0_10px_30px_rgba(44,62,53,0.08)]' : ''
         }`}
       >
@@ -1193,8 +1202,8 @@ function App() {
           className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-2 lg:px-6"
           aria-label="Primary navigation"
         >
-          <a href="#home" className="flex cursor-pointer items-center gap-3 text-[var(--text-dark)]">
-            <img src="/logo.png" alt="Starling Tales logo" className="nav-logo" />
+          <a href="#home" className="flex cursor-pointer items-center gap-3 text-text-dark">
+            <img src="/logo.png" alt="Starling Tales logo" className="w-13 h-13 object-contain" />
             <span className="font-display text-xl italic leading-none sm:text-2xl">Starling Tales</span>
           </a>
 
@@ -1203,41 +1212,41 @@ function App() {
               <a
                 key={link}
                 href={`#${link.toLowerCase().replaceAll(' ', '-')}`}
-                className="cursor-pointer text-[12px] font-medium uppercase tracking-[0.18em] text-[var(--text-dark)] transition-colors duration-200 hover:text-[var(--blue-soft)]"
+                className="cursor-pointer text-[12px] font-medium uppercase tracking-[0.18em] text-text-dark transition-colors duration-200 hover:text-blue-soft"
               >
                 {link}
               </a>
             ))}
           </div>
 
-          <div className="flex items-center gap-1 text-[var(--text-dark)] sm:gap-2">
+          <div className="flex items-center gap-1 text-text-dark sm:gap-2">
             <button
-              className="nav-icon-btn"
+              className="relative grid h-11 w-11 place-items-center rounded-full text-text-dark transition-colors duration-200 hover:bg-cream-dark hover:text-blue-soft focus-visible:bg-cream-dark focus-visible:text-blue-soft"
               type="button"
               aria-label="Search"
             >
               <Icon name="search" className="h-5 w-5" />
             </button>
             <button
-              className="nav-icon-btn"
+              className="relative grid h-11 w-11 place-items-center rounded-full text-text-dark transition-colors duration-200 hover:bg-cream-dark hover:text-blue-soft focus-visible:bg-cream-dark focus-visible:text-blue-soft"
               type="button"
               aria-label="Open wishlist"
               onClick={() => setWishlistOpen(true)}
             >
               <Icon name="heart" className="h-5 w-5" />
-              <span className="wishlist-badge" aria-live="polite" hidden={wishlist.length === 0}>
+              <span className="absolute -top-1 -right-1 flex min-w-[18px] h-[18px] items-center justify-center rounded-full p-0.5 bg-danger text-white text-[10px] font-semibold pointer-events-none" aria-live="polite" hidden={wishlist.length === 0}>
                 {wishlist.length}
               </span>
             </button>
             <button
-              className="nav-icon-btn"
+              className="relative grid h-11 w-11 place-items-center rounded-full text-text-dark transition-colors duration-200 hover:bg-cream-dark hover:text-blue-soft focus-visible:bg-cream-dark focus-visible:text-blue-soft"
               type="button"
               aria-label="Open cart"
               onClick={() => setCartOpen(true)}
             >
               <Icon name="bag" className="h-5 w-5" />
-              <span className="cart-badge" aria-live="polite" hidden={cartCount === 0}>
-                {cartCount}
+              <span className="absolute -top-1 -right-1 flex min-w-[18px] h-[18px] items-center justify-center rounded-full p-0.5 bg-blue-soft text-white text-[10px] font-semibold pointer-events-none" aria-live="polite" hidden={parsedCartCount === 0}>
+                {parsedCartCount}
               </span>
             </button>
           </div>
@@ -1245,28 +1254,36 @@ function App() {
       </header>
 
       <main id="home" className="pt-[68px]">
-        <section className="relative min-h-[calc(100vh-68px)] overflow-hidden bg-[var(--cream)]">
-          <Botanical className="absolute -left-10 top-12 h-44 w-44 text-[var(--blue-muted)] opacity-20" />
-          <Botanical className="absolute -right-12 bottom-0 h-56 w-56 rotate-180 text-[var(--blue-muted)] opacity-20" />
+        <section className="relative min-h-[calc(100vh-120px)] max-h-[640px] overflow-hidden bg-cream">
+          <Botanical className="absolute -left-10 top-12 h-44 w-44 text-blue-muted opacity-20" />
+          <Botanical className="absolute -right-12 bottom-0 h-56 w-56 rotate-180 text-blue-muted opacity-20" />
 
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-16 pt-4 md:grid-cols-[1.05fr_0.95fr] md:pb-20 lg:px-8 lg:pt-6">
+          <div className="mx-auto grid max-w-7xl items-start gap-12 px-5 pb-16 pt-4 md:grid-cols-[1.05fr_0.95fr] md:pb-20 lg:px-8 md:pt-12 lg:pt-16">
             <div className="relative z-10 max-w-xl">
-              <Botanical className="hero-stagger h-20 w-20 text-[var(--blue-soft)]" />
-              <h1 className="hero-stagger mt-6 whitespace-pre-line font-display text-[42px] font-semibold leading-[0.98] tracking-[0.04em] text-[var(--text-dark)] sm:text-[52px] lg:text-[64px]">
-                THE WORLD OF{'\n'}STARLING TALES
-              </h1>
-              <div className="hero-stagger mt-8">
+              <Botanical className="opacity-0 translate-y-5 animate-hero-fade [animation-fill-mode:forwards] h-12 w-12 text-blue-soft" style={{ animationDelay: '0ms' }} />
+              <AnimatedText
+                text={"THE WORLD OF\nSTARLING TALES"}
+                className="items-start"
+                textDelay={0.15}
+                initialY={20}
+                textClassName="text-left font-display text-[42px] font-semibold leading-[0.98] tracking-[0.04em] text-text-dark sm:text-[52px] lg:text-[64px] whitespace-pre-line mt-4"
+                underlineClassName="text-blue-soft -bottom-6 w-[280px] sm:w-[350px] lg:w-[420px]"
+                underlinePath="M 0,10 Q 75,0 150,10 Q 225,20 300,10"
+                underlineHoverPath="M 0,10 Q 75,20 150,10 Q 225,0 300,10"
+                underlineDuration={1.5}
+              />
+              <div className="opacity-0 translate-y-5 animate-hero-fade [animation-fill-mode:forwards] mt-10" style={{ animationDelay: '300ms' }}>
                 <HeartDivider centered={false} />
               </div>
-              <p className="hero-stagger mt-7 text-[17px] font-light text-[var(--text-dark)]">
+              <p className="opacity-0 translate-y-5 animate-hero-fade [animation-fill-mode:forwards] mt-7 text-[17px] font-light text-text-dark" style={{ animationDelay: '450ms' }}>
                 Welcome to our home and meet our residents.
               </p>
-              <p className="hero-stagger mt-5 max-w-[420px] text-[15px] font-light leading-[1.8] text-[var(--text-body)]">
+              <p className="opacity-0 translate-y-5 animate-hero-fade [animation-fill-mode:forwards] mt-5 max-w-[420px] text-[15px] font-light leading-[1.8] text-text-body" style={{ animationDelay: '600ms' }}>
                 Lovingly handcrafted, stitched with care, and created with gentle fabrics and
                 calming details - each companion is designed to bring comfort, imagination,
                 and meaningful moments into everyday childhood.
               </p>
-              <div className="hero-stagger mt-8">
+              <div className="opacity-0 translate-y-5 animate-hero-fade [animation-fill-mode:forwards] mt-8" style={{ animationDelay: '750ms' }}>
                 <ButtonLink href="#our-residents">Explore Our World</ButtonLink>
               </div>
             </div>
@@ -1282,14 +1299,14 @@ function App() {
           </div>
         </section>
 
-        <section className="reveal relative overflow-hidden border-y border-[var(--cream-dark)] bg-white px-5 py-16 lg:px-8">
-          <Botanical className="absolute left-8 top-8 h-52 w-52 text-[var(--blue-muted)] opacity-[0.15]" />
+        <section className="reveal relative overflow-hidden border-y border-cream-dark bg-white px-5 py-16 lg:px-8">
+          <Botanical className="absolute left-8 top-8 h-52 w-52 text-blue-muted opacity-[0.15]" />
           <div className="mx-auto grid max-w-6xl items-center gap-10 md:grid-cols-[1.2fr_0.8fr]">
             <div className="relative z-10">
-              <h2 className="font-serif-poetic text-[34px] font-normal italic text-[var(--text-dark)]">
+              <h2 className="font-serif-poetic text-[34px] font-normal italic text-text-dark">
                 Handcrafted with Care
               </h2>
-              <p className="mt-5 max-w-2xl text-[15px] font-light leading-[1.9] text-[var(--text-body)]">
+              <p className="mt-5 max-w-2xl text-[15px] font-light leading-[1.9] text-text-body">
                 This little world is lovingly handcrafted, stitched with care and attention to
                 every detail. Made with soft fabrics and gentle fillings, created to be
                 comforting companions, friends for imagination, and keepsakes to treasure for
@@ -1297,19 +1314,19 @@ function App() {
               </p>
             </div>
 
-            <div className="quote-heart relative z-10 mx-auto grid min-h-[260px] w-full max-w-[310px] place-items-center bg-[var(--cream)] px-8 py-10 text-center">
-              <p className="whitespace-pre-line font-serif-poetic text-[24px] font-normal italic leading-[1.18] text-[var(--text-dark)]">
+            <div className="border border-dashed border-blue-soft rounded-[58%_58%_48%_48%_/_50%_50%_64%_64%] shadow-[0_18px_45px_rgba(44,62,53,0.08)] relative z-10 mx-auto grid min-h-[260px] w-full max-w-[310px] place-items-center bg-cream px-8 py-10 text-center">
+              <p className="whitespace-pre-line font-serif-poetic text-[24px] font-normal italic leading-[1.18] text-text-dark">
                 from our hands{'\n'}to your heart -{'\n'}made with love,{'\n'}made to last
               </p>
-              <Icon name="heart" className="absolute bottom-7 h-5 w-5 text-[var(--blue-soft)]" />
+              <Icon name="heart" className="absolute bottom-7 h-5 w-5 text-blue-soft" />
             </div>
           </div>
         </section>
 
-        <section id="our-residents" className="reveal bg-[var(--cream)] px-5 py-20 lg:px-8">
+        <section id="our-residents" className="reveal bg-cream px-5 py-20 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="text-center">
-              <h2 className="section-kicker">Meet Our Residents</h2>
+              <h2 className="text-sm font-medium tracking-[0.26em] leading-normal uppercase text-text-dark max-md:text-xs max-md:tracking-[0.22em]">Meet Our Residents</h2>
               <HeartDivider />
             </div>
 
@@ -1328,7 +1345,7 @@ function App() {
           </div>
         </section>
 
-        <section id="about-us" className="reveal grid bg-[var(--cream)] md:grid-cols-2">
+        <section id="about-us" className="reveal grid bg-cream md:grid-cols-2">
           <img
             className="h-full min-h-[420px] w-full object-cover"
             src="4.jpeg"
@@ -1337,17 +1354,17 @@ function App() {
             decoding="async"
           />
           <div className="relative overflow-hidden px-5 py-16 md:px-12 lg:px-20 lg:py-24">
-            <Botanical className="absolute -right-10 bottom-6 h-48 w-48 text-[var(--blue-muted)] opacity-20" />
+            <Botanical className="absolute -right-10 bottom-6 h-48 w-48 text-blue-muted opacity-20" />
             <div className="relative z-10 max-w-xl">
-              <p className="section-kicker text-left">Our Philosophy</p>
+              <p className="text-sm font-medium tracking-[0.26em] leading-normal uppercase text-text-dark max-md:text-xs max-md:tracking-[0.22em] text-left">Our Philosophy</p>
               <div className="mt-6">
                 <HeartDivider centered={false} />
               </div>
-              <p className="mt-8 text-[15px] font-light leading-[1.85] text-[var(--text-body)]">
+              <p className="mt-8 text-[15px] font-light leading-[1.85] text-text-body">
                 At Starling Tales, we believe childhood should feel gentle, comforting, and
                 beautifully unhurried.
               </p>
-              <p className="mt-5 text-[15px] font-light leading-[1.85] text-[var(--text-body)]">
+              <p className="mt-5 text-[15px] font-light leading-[1.85] text-text-body">
                 Every piece is thoughtfully created using soft fabrics, calming colors, and
                 understated details - designed to celebrate milestones while becoming
                 cherished keepsakes over time.
@@ -1362,8 +1379,8 @@ function App() {
         <section id="nursery-collection" className="reveal bg-white px-5 py-20 lg:px-8">
           <div className="mx-auto max-w-7xl">
             <div className="text-center">
-              <h2 className="section-kicker">Our Collection</h2>
-              <p className="mt-3 font-serif-poetic text-[22px] italic text-[var(--brown-warm)]">
+              <h2 className="text-sm font-medium tracking-[0.26em] leading-normal uppercase text-text-dark max-md:text-xs max-md:tracking-[0.22em]">Our Collection</h2>
+              <p className="mt-3 font-serif-poetic text-[22px] italic text-brown-warm">
                 Handcrafted pieces for little ones
               </p>
             </div>
@@ -1383,17 +1400,17 @@ function App() {
           </div>
         </section>
 
-        <section id="gift-hampers" className="reveal grid gap-8 bg-[var(--cream-dark)] px-5 py-16 md:grid-cols-[0.95fr_1.05fr] md:gap-0 md:px-0 md:py-0">
+        <section id="gift-hampers" className="reveal grid gap-8 bg-cream-dark px-5 py-16 md:grid-cols-[0.95fr_1.05fr] md:gap-0 md:px-0 md:py-0">
           <div className="flex items-center px-0 md:px-12 lg:px-20">
             <div className="max-w-xl py-0 md:py-20">
-              <p className="section-kicker text-left">Gift Hampers</p>
+              <p className="text-sm font-medium tracking-[0.26em] leading-normal uppercase text-text-dark max-md:text-xs max-md:tracking-[0.22em] text-left">Gift Hampers</p>
               <div className="mt-6">
                 <HeartDivider centered={false} />
               </div>
-              <h2 className="mt-8 whitespace-pre-line font-display text-[36px] leading-[1.08] text-[var(--text-dark)] md:text-[42px]">
+              <h2 className="mt-8 whitespace-pre-line font-display text-[36px] leading-[1.08] text-text-dark md:text-[42px]">
                 The perfect gift,{'\n'}beautifully wrapped.
               </h2>
-              <p className="mt-6 text-[15px] font-light leading-[1.85] text-[var(--text-body)]">
+              <p className="mt-6 text-[15px] font-light leading-[1.85] text-text-body">
                 Every hamper is thoughtfully curated and presented - a complete gifting
                 experience for new arrivals, birthdays, and milestone moments.
               </p>
@@ -1417,11 +1434,11 @@ function App() {
           <div className="mx-auto grid max-w-7xl gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {pillars.map((pillar) => (
               <article key={pillar.title} className="text-center">
-                <Icon name={pillar.icon} className="mx-auto h-8 w-8 text-[var(--blue-soft)]" />
-                <h3 className="mt-5 text-[11px] font-medium uppercase tracking-[0.24em] text-[var(--text-dark)]">
+                <Icon name={pillar.icon} className="mx-auto h-8 w-8 text-blue-soft" />
+                <h3 className="mt-5 text-[11px] font-medium uppercase tracking-[0.24em] text-text-dark">
                   {pillar.title}
                 </h3>
-                <p className="mx-auto mt-3 max-w-[210px] text-[12px] font-light leading-[1.65] text-[var(--text-muted)]">
+                <p className="mx-auto mt-3 max-w-[210px] text-[12px] font-light leading-[1.65] text-text-muted">
                   {pillar.text}
                 </p>
               </article>
@@ -1429,28 +1446,28 @@ function App() {
           </div>
         </section>
 
-        <section className="reveal relative overflow-hidden bg-[var(--cream)] px-5 py-20 lg:px-8">
-          <Botanical className="absolute left-0 top-8 h-48 w-48 text-[var(--blue-muted)] opacity-20" />
-          <Botanical className="absolute bottom-8 right-0 h-48 w-48 rotate-180 text-[var(--blue-muted)] opacity-20" />
+        <section className="reveal relative overflow-hidden bg-cream px-5 py-20 lg:px-8">
+          <Botanical className="absolute left-0 top-8 h-48 w-48 text-blue-muted opacity-20" />
+          <Botanical className="absolute bottom-8 right-0 h-48 w-48 rotate-180 text-blue-muted opacity-20" />
 
           <div className="relative z-10 mx-auto grid max-w-5xl items-center gap-10 md:grid-cols-[260px_1fr]">
-            <div className="brand-badge mx-auto" aria-label="Starling Tales logo">
-              <img src="/logo.png" alt="Starling Tales logo" className="brand-logo" />
+            <div className="grid h-40 w-40 place-items-center border border-blue-muted rounded-full bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.72),rgba(200,221,232,0.18))] bg-cream shadow-[0_18px_40px_rgba(44,62,53,0.08)] mx-auto" aria-label="Starling Tales logo">
+              <img src="/logo.png" alt="Starling Tales logo" className="max-w-[80%] max-h-[80%] object-contain" />
             </div>
 
             <div className="text-center md:text-left">
-              <p className="text-[17px] font-light leading-[1.85] text-[var(--text-body)]">
+              <p className="text-[17px] font-light leading-[1.85] text-text-body">
                 Thank you for choosing{' '}
-                <span className="font-serif-poetic text-[24px] italic text-[var(--blue-soft)]">something</span>{' '}
+                <span className="font-serif-poetic text-[24px] italic text-blue-soft">something</span>{' '}
                 handmade and supporting slow, thoughtful creation.
               </p>
               <div className="mt-8">
                 <HeartDivider centered={false} />
               </div>
-              <p className="mt-8 font-serif-poetic text-[42px] italic leading-none text-[var(--text-dark)]">
+              <p className="mt-8 font-serif-poetic text-[42px] italic leading-none text-text-dark">
                 Starling Tales
               </p>
-              <p className="mt-4 text-[11px] font-light uppercase tracking-[0.28em] text-[var(--brown-warm)]">
+              <p className="mt-4 text-[11px] font-light uppercase tracking-[0.28em] text-brown-warm">
                 Handmade With Love
               </p>
             </div>
@@ -1458,7 +1475,7 @@ function App() {
         </section>
       </main>
 
-      <footer className="bg-[var(--text-dark)] px-5 py-14 text-[var(--cream)] lg:px-8">
+      <footer className="bg-text-dark px-5 py-14 text-cream lg:px-8">
         <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-4">
           <div>
             <h2 className="font-display text-2xl italic">Starling Tales</h2>
