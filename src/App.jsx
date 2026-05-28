@@ -1559,8 +1559,8 @@ function App() {
                 className="items-start"
                 textDelay={0.15}
                 initialY={20}
-                textClassName="text-left font-display text-[42px] font-semibold leading-[0.98] tracking-[0.04em] text-text-dark sm:text-[52px] lg:text-[64px] whitespace-pre-line mt-4"
-                underlineClassName="text-blue-soft -bottom-6 w-[280px] sm:w-[350px] lg:w-[420px]"
+                textClassName="text-left font-display text-[32px] font-semibold leading-[0.98] tracking-[0.04em] text-text-dark sm:text-[44px] lg:text-[52px] whitespace-pre-line mt-4"
+                underlineClassName="text-blue-soft -bottom-6 w-[220px] sm:w-[300px] lg:w-[360px]"
                 underlinePath="M 0,10 Q 75,0 150,10 Q 225,20 300,10"
                 underlineHoverPath="M 0,10 Q 75,20 150,10 Q 225,0 300,10"
                 underlineDuration={1.5}
