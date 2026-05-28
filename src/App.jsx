@@ -1015,16 +1015,19 @@ function WishlistDrawer({ wishlist, products, onClose, onMoveToCart, onRemove })
             </button>
           </div>
         ) : (
-          <div className="grid flex-1 grid-cols-2 gap-3 overflow-y-auto p-4" role="list" aria-label="Wishlist items">
+          <div className="flex flex-1 flex-col gap-3.5 overflow-y-auto p-4" role="list" aria-label="Wishlist items">
             {savedProducts.map((product) => (
-              <div className="overflow-hidden border border-cream-dark rounded-lg bg-white animate-fade-in" role="listitem" key={product.id}>
-                <img src={product.image} alt={product.name} className="w-full aspect-square object-cover" loading="lazy" />
-                <div className="p-2.5">
-                  <p className="overflow-hidden mb-0.5 text-text-dark font-display text-xs font-semibold text-ellipsis whitespace-nowrap">{product.name}</p>
-                  <p className="mb-2 text-text-dark text-xs">{formatPrice(product.price)}</p>
-                  <div className="flex gap-1.5">
+              <div className="flex gap-3.5 border border-cream-dark rounded-lg p-3.5 bg-white animate-fade-in" role="listitem" key={product.id}>
+                <img src={product.image} alt={product.name} className="w-18 h-22 shrink-0 rounded-md object-cover" loading="lazy" />
+                <div className="min-w-0 flex-1 flex flex-col justify-between">
+                  <div>
+                    <p className="mb-0.5 text-blue-soft text-[10px] font-medium tracking-widest uppercase">{product.category}</p>
+                    <p className="overflow-hidden mb-0.5 text-text-dark font-display text-sm font-semibold text-ellipsis whitespace-nowrap">{product.name}</p>
+                    <p className="text-text-dark text-xs font-medium">{formatPrice(product.price)}</p>
+                  </div>
+                  <div className="flex gap-2 mt-2">
                     <button
-                      className="min-h-[44px] flex-1 border-none rounded p-1.75 bg-text-dark text-cream text-[10px] font-medium tracking-wide uppercase transition-colors duration-150 hover:bg-blue-soft focus-visible:bg-blue-soft"
+                      className="min-h-[38px] h-[38px] flex-1 border-none rounded bg-text-dark text-cream text-[10px] font-medium tracking-wide uppercase transition-colors duration-150 hover:bg-blue-soft focus-visible:bg-blue-soft"
                       type="button"
                       onClick={() => onMoveToCart(product.id)}
                       aria-label={`Add ${product.name} to cart`}
@@ -1032,12 +1035,12 @@ function WishlistDrawer({ wishlist, products, onClose, onMoveToCart, onRemove })
                       Add to Cart
                     </button>
                     <button
-                      className="flex h-11 min-h-[44px] w-11 items-center justify-center border border-cream-dark rounded bg-white text-text-muted transition-colors duration-150 hover:border-danger hover:text-danger focus-visible:border-danger focus-visible:text-danger"
+                      className="flex h-[38px] min-h-[38px] w-9 items-center justify-center border border-cream-dark rounded bg-white text-text-muted transition-colors duration-150 hover:border-danger hover:text-danger focus-visible:border-danger focus-visible:text-danger"
                       type="button"
                       onClick={() => onRemove(product.id)}
                       aria-label={`Remove ${product.name} from wishlist`}
                     >
-                      <Icon name="trash" className="h-[13px] w-[13px]" />
+                      <Icon name="trash" className="h-[14px] w-[14px]" />
                     </button>
                   </div>
                 </div>
