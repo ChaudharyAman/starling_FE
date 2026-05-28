@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
+import { GetStartedButton } from '@/components/ui/get-started-button'
 
 const PRODUCTS = [
   {
@@ -572,14 +573,13 @@ function ProductCard({ product, isWishlisted, onWishlist, onQuickView, onAddToCa
         </div>
 
         <div className="card-actions">
-          <button
-            className="btn-view-detail"
-            type="button"
+          <GetStartedButton
+            className="flex-1 text-xs font-semibold uppercase tracking-wider h-11"
             onClick={() => onQuickView(product.id)}
             aria-label={`View details of ${product.name}`}
           >
             View Details
-          </button>
+          </GetStartedButton>
           <button
             className={`btn-wishlist-icon ${isWishlisted ? 'wishlisted' : ''}`}
             type="button"
@@ -1244,12 +1244,12 @@ function App() {
         </nav>
       </header>
 
-      <main id="home" className="pt-[92px]">
-        <section className="relative min-h-[calc(100vh-98px)] overflow-hidden bg-[var(--cream)]">
+      <main id="home" className="pt-[68px]">
+        <section className="relative min-h-[calc(100vh-68px)] overflow-hidden bg-[var(--cream)]">
           <Botanical className="absolute -left-10 top-12 h-44 w-44 text-[var(--blue-muted)] opacity-20" />
           <Botanical className="absolute -right-12 bottom-0 h-56 w-56 rotate-180 text-[var(--blue-muted)] opacity-20" />
 
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-16 pt-12 md:grid-cols-[1.05fr_0.95fr] md:pb-20 lg:px-8 lg:pt-18">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-16 pt-4 md:grid-cols-[1.05fr_0.95fr] md:pb-20 lg:px-8 lg:pt-6">
             <div className="relative z-10 max-w-xl">
               <Botanical className="hero-stagger h-20 w-20 text-[var(--blue-soft)]" />
               <h1 className="hero-stagger mt-6 whitespace-pre-line font-display text-[42px] font-semibold leading-[0.98] tracking-[0.04em] text-[var(--text-dark)] sm:text-[52px] lg:text-[64px]">
